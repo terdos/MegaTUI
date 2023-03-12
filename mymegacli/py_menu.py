@@ -4,7 +4,7 @@
 import traceback, os, sys, getopt
 root_path = os.path.split(os.path.realpath(__file__))[0]
 sys.path.insert(0, os.path.join(root_path, 'mylib'))
-from snack import * #导入图形界面
+from snack import * #Import graphical interface
 #from snack_lib import Mask
 from config import config_first
 from config import config_secondary
@@ -13,11 +13,11 @@ import three_page
 __version__ = "1.2.1"
 
 def usage():
-  print "<使用方法>"
-  print "-h 本帮助"
+  print "<Instructions>"
+  print "-h This help"
 def warwindows(screen, title, text, help = None):
-    #警告窗口
-    btn = Button("确定")
+    #Warning window
+    btn = Button("Sure")
     war = GridForm(screen, title, 20, 16)
     war.add(Label(text),0,1)
     war.add(Label(""),0,2)
@@ -32,7 +32,7 @@ class Menu_tool:
         self.screen.setColor("LABEL","black","white")
         self.screen.setColor("HELPLINE","white","blue")
         self.screen.setColor("TEXTBOX","black","yellow")
-        self.screen.pushHelpLine("<%s> Powered by meetbill...请使用TAB在选项间切换"%__version__)
+        self.screen.pushHelpLine("<%s> Powered by meetbill...Please use TAB to switch between options"%__version__)
         self.main_location = 1
         self.sec_location = 1
 
@@ -45,26 +45,26 @@ class Menu_tool:
         print traceback.format_exc()
       finally:
         self.screen.finish()
-        print "感谢使用！"
+        print "Thank you！"
         return ''
-    
+
     def QUIT(self):
-    #调用退出到命令行，输入exit返回
-        buttons = ("是", "否")
+    #Call the exit to the command line, enter the EXIT back
+        buttons = ("yes", "no")
         bb = ButtonBar(self.screen, buttons)
-        g = GridForm(self.screen, "返回登陆界面？" , 20,16)
+        g = GridForm(self.screen, "Back to the login interface？" , 20,16)
         g.add(bb,1,3,(10,0,10,0), growx = 1)
         rq = g.runOnce(32,8)
         self.screen.popWindow()
-        if rq == "ESC" or bb.buttonPressed(rq) == "否":
+        if rq == "ESC" or bb.buttonPressed(rq) == "no":
             self.first_menu()
         else:
             self.screen.finish()
             return
 
     def first_menu(self):
-    #主界面
-        # 主memu菜单项位置
+    #Main interface
+        # Main MEMU menu item location
         while True:
             self.screen = SnackScreen()
             self.screen.finish()
@@ -74,7 +74,7 @@ class Menu_tool:
             self.screen.setColor("LABEL","black","white")
             self.screen.setColor("HELPLINE","white","blue")
             self.screen.setColor("TEXTBOX","black","yellow")
-            self.screen.pushHelpLine("<%s> Powered by meetbill...请使用TAB在选项间切换"%__version__)
+            self.screen.pushHelpLine("<%s> Powered by meetbill...Please use TAB to switch between options"%__version__)
             li = Listbox(height = 15, width = 18, returnExit = 1, showCursor = 0)
 
             items_n = 1
@@ -82,13 +82,13 @@ class Menu_tool:
                 li.append(items, items_n)
                 items_n += 1
             li.setCurrent(self.main_location)
-          
-            bb = CompactButton('|->退出<-|')
+
+            bb = CompactButton('|->quit<-|')
             g = GridForm(self.screen, "manager", 1, 10)
             g.add(li, 0, 1)
             g.add(bb, 0, 2)
             g.add(Label(" "),0,3)
-            g.add(Label("[管理利器]"),0,4)
+            g.add(Label("[Managed weapon]"),0,4)
             rc=g.run(1,3)
             self.main_location = li.current()
             if rc == 'ESC' or 'snack.CompactButton' in str(rc) :
@@ -96,18 +96,18 @@ class Menu_tool:
             if li.current() in range(1,len(config_first["items"])+1):
                 self.secondary_menu()
 
-    # 第二层menu
+    # The second layer menu
     def secondary_menu(self):
         li = Listbox(height = 15, width = 14, returnExit = 1, showCursor = 0)
         n = 0
-        bb = CompactButton('返回')
+        bb = CompactButton('return')
         secondary_window = config_secondary[self.main_location - 1]
         items_n = 1
         for items in secondary_window["items"]:
             li.append(items[0], items_n)
             items_n += 1
         while True:
-            h = GridForm(self.screen, "请选择", 1, 16)
+            h = GridForm(self.screen, "please choose", 1, 16)
             if len(secondary_window["items"]) < self.sec_location:
                 li.setCurrent(1)
             else:
@@ -126,9 +126,9 @@ class Menu_tool:
                             if secondary_window["items"][self.sec_location-1][1] == fun[0]:
                                 fun[1](self.screen)
                     else:
-                        warwindows(self.screen, "警告", "没有找到对应的函数!")
+                        warwindows(self.screen, "warn", "Can't find the corresponding function!")
                 else:
-                    warwindows(self.screen, "测试", "xxx")
+                    warwindows(self.screen, "test", "xxx")
 
 try:
     if len(sys.argv) > 1:
@@ -137,9 +137,9 @@ try:
             if op == "-h":
                 usage()
                 sys.exit()
-    
+
     if len(config_first["items"]) != len(config_secondary):
-        print "一级目录个数与二级窗口个数不对应"
+        print "一The number of level directory is not corresponding to the number of secondary windows"
         sys.exit()
     if  os.getenv('STY'):
         print "not support screen"
@@ -148,5 +148,5 @@ try:
     menu.main()
 except Exception,e:
     print e
-    print "指定的参数无效"
+    print "The specified parameter is invalid"
     usage()

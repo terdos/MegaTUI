@@ -29,24 +29,24 @@ logger = Log(logpath,level="debug",is_console=debug, mbs=5, count=5)
 def three1_1funtion(screen):
     """
     raid status
-    
+
     """
     adapters = cli.adapters()
     adapter_id = 0
-    # 如果没有获取的 raid 卡，则直接返回提醒
+    # Not obtained raid Card, then return to reminder directly
     if not len(adapters):
         waring = Snack_output(screen, "waring", 35 )
         waring.text("not found raid card")
         waring.run(43,3)
         return 0
-    # 如果获取到 raid 卡有两个及以上，则弹出选择框
+    # If there are two or more RAID cards, the selection box pops up
     elif len(adapters) > 1:
         item_list = []
         item = 0
         for adapter in adapters:
             item_list.append("raid "+str(item))
             item = item + 1
-        action, selection = ListboxChoiceWindow(screen, 'Title 2',                                                                                                       
+        action, selection = ListboxChoiceWindow(screen, 'Title 2',
                                    'Choose one item from list below:',
                                    item_list, default=0,width = 35,
                                    help="Help for a listbox")
@@ -57,24 +57,24 @@ def three1_1funtion(screen):
                 adapter_id = 1
         else:
             return
-    adapter_info = adapters[adapter_id]    
+    adapter_info = adapters[adapter_id]
     m = Snack_output(screen, "status_raid", 35 )
-    m.text("raid卡名称:   %s"%adapter_info["product_name"])
-    m.text("物理磁盘数量: %s"%adapter_info["disks"])
-    m.text("高危磁盘:     %s"%adapter_info["critical_disks"])
-    m.text("失效磁盘:     %s"%adapter_info["failed_disks"])
-    m.text("已创建磁盘组: %s"%adapter_info["virtual_drives"])
-    m.text("下线磁盘组:   %s"%adapter_info["offline"])
-    m.text("降级磁盘组:   %s"%adapter_info["degraded"])
-    m.text("开启JBOD模式: %s"%adapter_info["enable_jbod"])
+    m.text("RAID card name:   %s"%adapter_info["product_name"])
+    m.text("Physical disk quantity: %s"%adapter_info["disks"])
+    m.text("High -risk disk:     %s"%adapter_info["critical_disks"])
+    m.text("Failed disk:     %s"%adapter_info["failed_disks"])
+    m.text("Created disk group: %s"%adapter_info["virtual_drives"])
+    m.text("Offline disk group:   %s"%adapter_info["offline"])
+    m.text("Downgrade:   %s"%adapter_info["degraded"])
+    m.text("Open the JBOD mode: %s"%adapter_info["enable_jbod"])
     m.run(43,3)
 
 def three1_2funtion(screen):
     """
-    物理磁盘信息
+    Physical disk information
     """
     adapters = cli.adapters()
-    # 如果没有获取的 raid 卡，则直接返回提醒
+    # If the RAID card is not obtained, return to the reminder directly
     if not len(adapters):
         waring = Snack_output(screen, "waring", 35 )
         waring.text("not found raid card")
@@ -82,7 +82,7 @@ def three1_2funtion(screen):
         return 0
 
     m = Snack_output(screen, "status_raid", 35 )
-    physicaldrives = cli.physicaldrives()  
+    physicaldrives = cli.physicaldrives()
     m.text("%s%s%s%s%s%s%s"%(format("device_ID","^10"),format("raidID","^6"),format("VD","^6"),format("ED","^6"),format("slotID","^6"),format("raw_size","^15"),format("firmware_state","^20")))
     for drive in physicaldrives:
         if "enclosure_id" in drive.keys():
@@ -94,10 +94,10 @@ def three1_2funtion(screen):
 
 def three1_3funtion(screen):
     """
-    逻辑磁盘信息
+    Logic disk information
     """
     adapters = cli.adapters()
-    # 如果没有获取的 raid 卡，则直接返回提醒
+    # If the RAID card is not obtained, return to the reminder directly
     if not len(adapters):
         waring = Snack_output(screen, "waring", 35 )
         waring.text("not found raid card")
@@ -105,7 +105,7 @@ def three1_3funtion(screen):
         return 0
 
     m = Snack_output(screen, "status_vd", 65 )
-    logicaldrives = cli.logicaldrives()  
+    logicaldrives = cli.logicaldrives()
     m.text("%s%s%s%s%s%s"%(format("raidID","^6"),format("vd","^4"),format("num","^6"),format("size","^12"),format("state","^8"),format("raid_level","^8")))
     for vd in logicaldrives:
         if "id" in vd.keys():
@@ -114,10 +114,10 @@ def three1_3funtion(screen):
 
 def rebuild_device_status(screen):
     """
-    rebuild 进度信息
+    Rebuild progress information
     """
     adapters = cli.adapters()
-    # 如果没有获取的 raid 卡，则直接返回提醒
+    # If the RAID card is not obtained, return to the reminder directly
     if not len(adapters):
         waring = Snack_output(screen, "waring", 35 )
         waring.text("not found raid card")
@@ -143,7 +143,7 @@ def example(screen):
      m.entry( "label_test1", "entry_test1", "0" )
      m.entry( "label_test2", "entry_test2", "0" )
      m.entry( "label_test3", "entry_test3", "127.0.0.1" )
-     m.checks( "复选框","checks_list",[
+     m.checks( "Check box","checks_list",[
          ('checks_name1','checks1',0),
          ('checks_name2','checks2',0),
          ('checks_name3','checks3',0),
@@ -153,18 +153,18 @@ def example(screen):
          ('checks_name7','checks7',0),
      ],
      height= 5
-     )    
-     m.radios( "单选框","radios", [ 
-         ('radios_name1','radios1', 0), 
-         ('radios_name2','radios2', 1), 
-         ('radios_name3','radios3', 0) ] )  
-     
+     )
+     m.radios( "Single box","radios", [
+         ('radios_name1','radios1', 0),
+         ('radios_name2','radios2', 1),
+         ('radios_name3','radios3', 0) ] )
+
      m.buttons( yes="Sava&Quit", no="Quit" )
      (cmd, results) = m.run(43,3)
-     
+
      logger.debug(str(cmd)+" "+str(results))
      if cmd == "yes":
-        rx = conformwindows(screen, "确认操作")
+        rx = conformwindows(screen, "Confirm operation")
         if rx[0] == "yes" or rx[1] == "F12":
             """exe"""
             return
