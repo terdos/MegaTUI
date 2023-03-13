@@ -3,7 +3,7 @@
 > * [CN] Megatai is the MegaCli terminal interface management tool
 > * [EN] Megatui is MegaCli Terminal Interface Management Tool
 
-![Screenshot](images\lvinfo.png)
+![Screenshot](images/lvinfo.png)
 
 ## manual
 
