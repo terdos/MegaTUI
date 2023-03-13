@@ -3,16 +3,16 @@
 > * [CN] Megatai is the MegaCli terminal interface management tool
 > * [EN] Megatui is MegaCli Terminal Interface Management Tool
 
-![Screenshot](images%5Clvinfo.png)
+![Screenshot](images\lvinfo.png)
 
 ## manual
 
-> * [Manual (manual)] (https://github.com/billwang139967/megaCli\_tui/wiki)
+> * [Manual (manual)] (https://github.com/billwang139967/megaCli_tui/wiki)
 
 ## related projects
 
 > * MegaCli Library
-> * Python TUI Library [py\_menu] (https://github.com/billwang139967/py\_menu)
+> * Python TUI Library [py_menu] (https://github.com/billwang139967/py_menu)
 
 ## version released
 
