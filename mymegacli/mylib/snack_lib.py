@@ -191,7 +191,7 @@ class Snack_output():
         self.g.add(Label(text),0,self._row,anchorLeft = 1)
         self._row += 1
     def run(self,width = 0,height = 0):
-        btn = Button("确定")
+        btn = Button("Sure")
         self.g.add(btn,0,self._row)
         self.g.runOnce(width,height)
 
